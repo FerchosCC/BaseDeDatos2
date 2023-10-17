@@ -1,0 +1,110 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN1TNyU+5djS5u3QH4LlXgR",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/FerchosCC/BaseDeDatos2/blob/main/7%C2%B0Trabajo\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "80z5aAqOVoFv",
+        "outputId": "168b337f-0823-48d4-b9d5-8e4fe9e18ffc"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Izquierda\n"
+          ]
+        }
+      ],
+      "source": [
+        "class Arbol(object):\n",
+        "    def __init__(self):\n",
+        "        self.der = None\n",
+        "        self.izq = None\n",
+        "        self.dato = None\n",
+        "raiz = Arbol()\n",
+        "raiz.dato = 'Raiz'\n",
+        "raiz.izq = Arbol()\n",
+        "raiz.izq.dato = 'Izquierda'\n",
+        "raiz.der = Arbol()\n",
+        "raiz.der.dato = 'Derecha'\n",
+        "\n",
+        "print(raiz.izq.dato)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Arbol(object):\n",
+        "    def __init__(self):\n",
+        "        self.der = None\n",
+        "        self.izq = None\n",
+        "        self.dato = None\n",
+        "\n",
+        "raiz = Arbol()\n",
+        "raiz.dato = 'Raiz'\n",
+        "raiz.izq = Arbol()\n",
+        "raiz.izq.dato = 'Izquierda'\n",
+        "raiz.der = Arbol()\n",
+        "raiz.der.dato = 'Derecha'\n",
+        "\n",
+        "raiz.izq.izq = Arbol()\n",
+        "raiz.izq.izq.dato = 'Izquierda 2'\n",
+        "raiz.izq.der = Arbol()\n",
+        "raiz.izq.der.dato = 'Izquierda - Derecha'"
+      ],
+      "metadata": {
+        "id": "t3tFe0T5Vs8h"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Arbol(object):\n",
+        "  def __init__(self):\n",
+        "    self.der = None\n",
+        "    self.der2 = None\n",
+        "    self.cent = None\n",
+        "    self.izq = None\n",
+        "    self.izq2 = None\n",
+        "    self.dato = None"
+      ],
+      "metadata": {
+        "id": "MNPd57rvXlb1"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
