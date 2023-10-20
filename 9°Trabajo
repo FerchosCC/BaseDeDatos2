@@ -1,0 +1,326 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyObeny082J0gcQNbqLaGzor",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/FerchosCC/BaseDeDatos2/blob/main/9%C2%B0Trabajo\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "JRwqJ-rmfwgI"
+      },
+      "outputs": [],
+      "source": [
+        "class ArbolBinarioBusqueda:\n",
+        "  def __init__(self):\n",
+        "    self.raiz = None\n",
+        "    self.tamano = 0\n",
+        "  def longitud(self):\n",
+        "    return self.tamano\n",
+        "  def __len__(self):\n",
+        "    return self.tamano\n",
+        "  def __iter__(self):\n",
+        "    return self.raiz.__iter__()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class NodoArbol:\n",
+        "  def __init__(self, clave, valor, izquierdo=None, derecho=None, padre=None):\n",
+        "    self.clave = clave\n",
+        "    self.cargaUtil = valor\n",
+        "    self.hijoIzquierdo = izquierdo\n",
+        "    self.hijoDerecho = derecho\n",
+        "    self.padre = padre\n",
+        "  def tieneHijoIzquierdo(self):\n",
+        "    return self.hijoIzquierdo\n",
+        "  def tieneHijoDerecho(self):\n",
+        "    return self.hijoDerecho\n",
+        "  def esHijoIzquierdo(self):\n",
+        "    return self.padre and self.padrehijoIzquierdo == self\n",
+        "  def esHijoDerecho(self):\n",
+        "    return self.padre and self.padreDerecho == self\n",
+        "  def esRaiz(self):\n",
+        "    return not self.padre\n",
+        "  def esHoja(self):\n",
+        "    return not (self.hijoDerecho or self.hijoIzquierdo)\n",
+        "  def tieneAlgunHijo(self):\n",
+        "    return self.hijoDerecho or self.hijoIzquierdo\n",
+        "  def tieneAmbosHijos(self):\n",
+        "    return self.hijoDerecho and self.hijoIzquierdo\n",
+        "  def reemplazarDatoDeNodo(self,clave,valor,hizq,hder):\n",
+        "    self.clave = clave\n",
+        "    self.cargaUtil = valor\n",
+        "    self.hijoIzquierdo = hizq\n",
+        "    self.hijoDerecho = hder\n",
+        "    if self.tieneHijoIzquierdo():\n",
+        "      self.hijoIzquierdo.padre = self\n",
+        "    if self.tieneHijoDerecho():\n",
+        "      self.esHijoDerecho.padre = self"
+      ],
+      "metadata": {
+        "id": "Zsdvm8_CqTev"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from _typeshed import Self\n",
+        "def agregar(self,clave,valor):\n",
+        "  if self.raiz:\n",
+        "    self._agregar(clave,valor,self.raiz)\n",
+        "  else:\n",
+        "    self.raiz = NodoArbol(clave,valor)\n",
+        "  self.tamaño = self.tamano + 1\n",
+        "def _agregar(self,clave,valor,nodoActual):\n",
+        "  if clave < nodoActual.clave:\n",
+        "    if nodoActual.tieneHijoIzquierdo():\n",
+        "      self._agregar(clave,valor,nodoActual.hijoIzquierdo)\n",
+        "    else:\n",
+        "      nodoActual.hijoIzquierdo = NodoArbol(clave,valor,padre=nodoActual)\n",
+        "  else:\n",
+        "    if nodoActual.tieneHijoDerecho():\n",
+        "      self._agregar(clave,valor,nodoActual.hijoDerecho)\n",
+        "    else:\n",
+        "      nodoActual.hijoDerecho = NodoArbol(clave,valor,padre=nodoActual)\n"
+      ],
+      "metadata": {
+        "id": "MTYm3dBOvLM2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def __setitem__(self,c,v):\n",
+        "  self.agregar(c,v)"
+      ],
+      "metadata": {
+        "id": "rcny06cmxDeh"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def obtener(self,clave):\n",
+        "  if self.raiz:\n",
+        "    res = self._obtener(clave,self.raiz)\n",
+        "    if res:\n",
+        "      return res.cargaUtil\n",
+        "    else:\n",
+        "      return None\n",
+        "def _obtener(self,clave,nodoActual):\n",
+        "  if not nodoActual:\n",
+        "    return None\n",
+        "  elif nodoActual.clave == clave:\n",
+        " return nodoActual\n",
+        " elif clave < nodoActual.clave:\n",
+        " return self._obtener(clave,nodoActual.hijoIzquierdo)\n",
+        " else:\n",
+        " return self._obtener(clave,nodoActual.hijoDerecho)\n",
+        "def __getitem__(self,clave):\n",
+        " return self.obtener(clave)\n"
+      ],
+      "metadata": {
+        "id": "m5CzBaNccaT8"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def __contains__(self,clave):\n",
+        " if self._obtener(clave,self.raiz):\n",
+        " return True\n",
+        " else:\n",
+        " return False"
+      ],
+      "metadata": {
+        "id": "QFOVwJ7md2__"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def eliminar(self,clave):\n",
+        " if self.tamano > 1:\n",
+        " nodoAEliminar = self._obtener(clave,self.raiz)\n",
+        " if nodoAEliminar:\n",
+        " self.remover(nodoAEliminar)\n",
+        " self.tamano = self.tamano-1\n",
+        " else:\n",
+        " raise KeyError('Error, la clave no está en el árbol')\n",
+        " elif self.tamano == 1 and self.raiz.clave == clave:\n",
+        " self.raiz = None\n",
+        " self.tamano = self.tamano - 1\n",
+        " else:\n",
+        " raise KeyError('Error, la clave no está en el árbol')\n",
+        "def __delitem__(self,clave):\n",
+        " self.eliminar(clave)"
+      ],
+      "metadata": {
+        "id": "SferB2f5d_0u"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "if nodoActual.esHoja():\n",
+        " if nodoActual == nodoActual.padre.hijoIzquierdo:\n",
+        " nodoActual.padre.hijoIzquierdo = None\n",
+        " else:\n",
+        " nodoActual.padre.hijoDerecho = None"
+      ],
+      "metadata": {
+        "id": "Rvtqb3SdeCVm"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "else: # este nodo tiene un (1) hijo\n",
+        "  if nodoActual.tieneHijoIzquierdo():\n",
+        "    if nodoActual.esHijoIzquierdo():\n",
+        "      nodoActual.hijoIzquierdo.padre = nodoActual.padre\n",
+        "      nodoActual.padre.hijoIzquierdo = nodoActual.hijoIzquierdo\n",
+        "    elif nodoActual.esHijoDerecho():\n",
+        "      nodoActual.hijoIzquierdo.padre = nodoActual.padre\n",
+        "      nodoActual.padre.hijoDerecho = nodoActual.hijoIzquierdo\n",
+        "    else:\n",
+        "      nodoActual.reemplazarDatoDeNodo(nodoActual.hijoIzquierdo.clave,nodoActual.hijoIzquierdo.cargaUtil,nodoActual.hijoIzquierdo.hijoIzquierdo,nodoActual.hijoIzquierdo.hijoDerecho)\n",
+        "    else:\n",
+        "      if nodoActual.esHijoIzquierdo():\n",
+        "        nodoActual.hijoDerecho.padre = nodoActual.padre\n",
+        "        nodoActual.padre.hijoIzquierdo = nodoActual.hijoDerecho\n",
+        "      elif nodoActual.esHijoDerecho():\n",
+        "        nodoActual.hijoDerecho.padre = nodoActual.padre\n",
+        "        nodoActual.padre.hijoDerecho = nodoActual.hijoDerecho\n",
+        "      else:\n",
+        "        nodoActual.reemplazarDatoDeNodo(nodoActual.hijoDerecho.clave,nodoActual.hijoDerecho.cargaUtil,nodoActual.hijoDerecho.hijoIzquierdo,nodoActual.hijoDerecho.hijoDerecho)\n",
+        ""
+      ],
+      "metadata": {
+        "id": "_TgmfDq_eEeL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "elif nodoActual.tieneAmbosHijos(): #interior\n",
+        "  suc = nodoActual.encontrarSucesor()\n",
+        "  suc.empalmar()\n",
+        "  nodoActual.clave = suc.clave\n",
+        "  nodoActual.cargaUtil = suc.cargaUtil"
+      ],
+      "metadata": {
+        "id": "Ym1MdZNPhQPb"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def encontrarSucesor(self):\n",
+        "  suc = None\n",
+        "  if self.tieneHijoDerecho():\n",
+        "    suc = self.hijoDerecho.encontrarMin()\n",
+        "  else:\n",
+        "    if self.padre:\n",
+        "      if self.esHijoIzquierdo():\n",
+        "        suc = self.padre\n",
+        "      else:\n",
+        "        self.padre.hijoDerecho = None\n",
+        "        suc = self.padre.encontrarSucesor()\n",
+        "        self.padre.hijoDerecho = self\n",
+        "  return suc\n",
+        "def encontrarMin(self):\n",
+        "  actual = self\n",
+        "  while actual.tieneHijoIzquierdo():\n",
+        "    actual = actual.hijoIzquierdo\n",
+        "  return actual\n",
+        "def empalmar(self):\n",
+        "  if self.esHoja():\n",
+        "    if self.esHijoIzquierdo():\n",
+        "      self.padre.hijoIzquierdo = None\n",
+        "    else:\n",
+        "      self.padre.hijoDerecho = None\n",
+        "  elif self.tieneAlgunHijo():\n",
+        "    if self.tieneHijoIzquierdo():\n",
+        "      if self.esHijoIzquierdo():\n",
+        "        self.padre.hijoIzquierdo = self.hijoIzquierdo\n",
+        "      else:\n",
+        "        self.padre.hijoDerecho = self.hijoIzquierdo\n",
+        "        self.hijoIzquierdo.padre = self.padre\n",
+        "    else:\n",
+        "      if self.esHijoIzquierdo():\n",
+        "        self.padre.hijoIzquierdo = self.hijoDerecho\n",
+        "    else:\n",
+        "      self.padre.hijoDerecho = self.hijoDerecho\n",
+        "    self.hijoDerecho.padre = self.padre\n"
+      ],
+      "metadata": {
+        "id": "eXzsKH-Ehp5U"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def __iter__(self):\n",
+        "  if self:\n",
+        "    if self.tieneHijoIzquierdo():\n",
+        "      for elem in self.hijoIzquierdo:\n",
+        "        yield elem\n",
+        "    yield self.clave\n",
+        "    if self.tieneHijoDerecho():\n",
+        "      for elem in self.hijoDerecho:\n",
+        "        yield elem\n"
+      ],
+      "metadata": {
+        "id": "GkWSQ3MVjeQc"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
